@@ -2,7 +2,7 @@ const BG_COLOR = '#231f20';
 const SNAKE_COLOR = '#c2c2c2';
 const FOOD_COLOR = '#e66916';
 // heroku deployment
-const socket = io(' https://stark-mountain-53401.herokuapp.com/');
+const socket = io('https://stark-mountain-53401.herokuapp.com/');
 // local dev
 // const socekt = io('localhost:3000');
 
