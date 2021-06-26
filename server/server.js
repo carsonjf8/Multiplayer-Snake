@@ -38,6 +38,7 @@ io.on('connection', client => {
 
         client.join(roomName);
         client.number = 2;
+        client.emit('gameCode', roomName);
         client.emit('init', 2);
 
         startGameInterval(roomName);

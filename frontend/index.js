@@ -2,9 +2,9 @@ const BG_COLOR = '#231f20';
 const SNAKE_COLOR = '#c2c2c2';
 const FOOD_COLOR = '#e66916';
 // heroku deployment
-const socket = io('https://stark-mountain-53401.herokuapp.com/');
+//const socket = io('https://stark-mountain-53401.herokuapp.com/');
 // local dev
-// const socekt = io('localhost:3000');
+const socket = io('localhost:3000');
 
 socket.on('init', handleInit);
 socket.on('gameState', handleGameState);
@@ -19,6 +19,7 @@ const newGameBtn = document.getElementById('newGameButton');
 const joinGameBtn = document.getElementById('joinGameButton');
 const gameCodeInput = document.getElementById('gameCodeInput');
 const gameCodeDisplay = document.getElementById('gameCodeDisplay');
+const winnerDisplay = document.getElementById('winnerDisplay');
 
 newGameBtn.addEventListener('click', newGame);
 joinGameBtn.addEventListener('click', joinGame);
@@ -29,11 +30,12 @@ function newGame() {
 }
 
 function joinGame() {
-    const code = gameCodeInput.value;
+    code = gameCodeInput.value;
     socket.emit('joinGame', code);
     init();
 }
 
+let code;
 let canvas, ctx;
 let playerNumber;
 let gameActive = false;
@@ -102,11 +104,14 @@ function handleGameOver(data) {
 
     data = JSON.parse(data);
 
+    winnerDisplay.style.display = 'block';
     if(data.winner === playerNumber) {
-        alert('You Win!');
+        winnerDisplay.style.color = 'green';
+        winnerDisplay.innerText = 'You Win!';
     }
     else {
-        alert('You Lose!');
+        winnerDisplay.style.color = 'red';
+        winnerDisplay.innerText = 'You Lose!';
     }
 
     gameActive = false;
