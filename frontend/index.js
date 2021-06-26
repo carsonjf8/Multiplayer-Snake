@@ -1,7 +1,10 @@
 const BG_COLOR = '#231f20';
 const SNAKE_COLOR = '#c2c2c2';
 const FOOD_COLOR = '#e66916';
-const socket = io('http://localhost:3000');
+// heroku deployment
+const socket = io(' https://stark-mountain-53401.herokuapp.com/');
+// local dev
+// const socekt = io('localhost:3000');
 
 socket.on('init', handleInit);
 socket.on('gameState', handleGameState);
