@@ -11,6 +11,7 @@ io.on('connection', client => {
     client.on('keydown', handleKeyDown);
     client.on('newGame', handleNewGame);
     client.on('joinGame', handleJoinGame);
+    client.on('restartGame', restartGame);
 
     function handleJoinGame(roomName) {
         const room = io.sockets.adapter.rooms[roomName];
@@ -56,6 +57,14 @@ io.on('connection', client => {
         client.emit('init', 1);
     }
 
+    function restartGame() {
+        // not done
+        //state[roomName] = initGame();
+        //startGameInterval(roomName);
+
+        //io.sockets.in(room).emit('restart');
+    }
+
     function handleKeyDown(keyCode) {
         const roomName = clientRooms[client.id];
 
@@ -95,13 +104,11 @@ function startGameInterval(roomName) {
 }
 
 function emitGameState(room, gameState) {
-    io.sockets.in(room)
-        .emit('gameState', JSON.stringify(gameState));
+    io.sockets.in(room).emit('gameState', JSON.stringify(gameState));
 }
 
 function emitGameOver(room, winner) {
-    io.sockets.in(room)
-        .emit('gameOver', JSON.stringify({ winner }));
+    io.sockets.in(room).emit('gameOver', JSON.stringify({ winner }));
 }
 
 io.listen(process.env.PORT || 3000);
